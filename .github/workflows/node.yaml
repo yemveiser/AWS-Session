@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     
     env: 
-    DOMAIN: "{{}}"
-    PORT: 
-    STATIC_DIR: 
-    PUBLISHABLE_KEY: 
-    SECRET_KEY: 
+      DOMAIN: '{{}}'
+      PORT: '{{secrets.PORT}}'
+      STATIC_DIR: '{{secrets.STATIC_DIR}}'
+      PUBLISHABLE_KEY: '{{secrets.PUBLISHABLE_KEY}}'
+      SECRET_KEY: '{{secrets.SECRET_KEY}}'
     
    
     strategy:
@@ -30,7 +30,7 @@ jobs:
     steps:
     
     - uses: actions/checkout@v3
-    - run: npm install
+    
     
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.1
@@ -41,5 +41,12 @@ jobs:
         remote_host: ec2-3-212-217-86.compute-1.amazonaws.com
         remote_user: ubuntu
         remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+     
+    - name: run the app
+    - run: cd /var/www/my-app/
+    - run: npm install
+    - run: npm start
+    
+     
         
     
