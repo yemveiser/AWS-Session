@@ -13,10 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /var/www/my-app/
-    
+        
     env: 
       DOMAIN: '{{}}'
       PORT: '{{secrets.PORT}}'
@@ -46,10 +43,9 @@ jobs:
         remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
 
     - name: run app
-      run: |
-           npm install
-           npm start
-    
+      run: npm start
+      working-directory: /var/www/my-app/
+      
      
         
     
