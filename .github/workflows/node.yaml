@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: path/to/your/directory
+        working-directory: /var/www/my-app/
     
     env: 
       DOMAIN: '{{}}'
@@ -44,10 +44,11 @@ jobs:
         remote_host: ec2-3-212-217-86.compute-1.amazonaws.com
         remote_user: ubuntu
         remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
-     
-    - run: cd /var/www/my-app/
-    - run: npm install
-    - run: npm start
+
+    - name: run app
+      run: |
+           npm install
+           npm start
     
      
         
