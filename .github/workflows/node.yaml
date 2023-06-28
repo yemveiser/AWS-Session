@@ -13,6 +13,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    env: 
+    DOMAIN: "{{}}"
+    PORT: 
+    STATIC_DIR: 
+    PUBLISHABLE_KEY: 
+    SECRET_KEY: 
+    
    
     strategy:
       matrix:
