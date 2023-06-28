@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    if: github.ref == 'refs/heads/master'
     strategy:
       matrix:
         node-version: [12.x]
@@ -21,10 +21,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+    - run: npm ci
+    - run: npm run build
+    - run: npm run test
+
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.1
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm install
-    - run: npm test
+        switches: -avzr --delete
+        path: ./*
+        remote_path: /var/www/my-app/
+        remote_host: <host>.compute.amazonaws.com
+        remote_user: ubuntu
+        remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
