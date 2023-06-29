@@ -42,7 +42,7 @@ jobs:
         remote_user: ubuntu
         remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
 
-    - name: run app
+    - name: run the app
       run: npm start
       working-directory: /var/www/my-app/
       
